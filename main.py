@@ -82,6 +82,18 @@ def input_multiline(message):
         print("⚠️  내용이 비어 있습니다. 다시 입력해주세요.")
 
 
+def format_prompt(prompt):
+    """목록에 표시할 한 줄 문자열을 만든다. 예: [텍스트 생성] 제목 ⭐"""
+    star = " ⭐" if prompt["favorite"] else ""
+    return f"[{prompt['category']}] {prompt['title']}{star}"
+
+
+def print_prompts(numbered_prompts):
+    """(번호, 프롬프트) 목록을 출력한다. 번호는 전체 목록 기준 번호이다."""
+    for number, prompt in numbered_prompts:
+        print(f"{number}. {format_prompt(prompt)}")
+
+
 def select_category(allow_custom=False):
     """카테고리 목록을 보여주고 선택된 카테고리 이름을 돌려준다.
     잘못 입력하면 None을 돌려준다."""
