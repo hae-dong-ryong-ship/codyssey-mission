@@ -153,6 +153,16 @@ def add_prompt():
     print("\n✅ 프롬프트가 추가되었습니다!")
 
 
+def show_list():
+    print("\n=== 프롬프트 목록 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    print_prompts(enumerate(prompts, start=1))
+    print(f"\n총 {len(prompts)}개의 프롬프트")
+
+
 # ──────────────────────────────────────────
 # 4. 메인 루프
 # ──────────────────────────────────────────
@@ -165,6 +175,8 @@ def main():
         match choice:
             case "1":
                 add_prompt()
+            case "2":
+                show_list()
             case "0":
                 print("프로그램을 종료합니다. 안녕히 가세요! 👋")
                 break
