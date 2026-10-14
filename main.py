@@ -163,6 +163,24 @@ def show_list():
     print(f"\n총 {len(prompts)}개의 프롬프트")
 
 
+def show_by_category():
+    print("\n=== 카테고리별 조회 ===")
+    category = select_category()
+    if category is None:
+        return
+
+    result = [(i, p) for i, p in enumerate(prompts, start=1)
+              if p["category"] == category]
+
+    if not result:
+        print(f"\n[{category}] 카테고리에 등록된 프롬프트가 없습니다.")
+        return
+
+    print(f"\n[{category}] 카테고리 프롬프트:")
+    print_prompts(result)
+    print(f"\n총 {len(result)}개의 프롬프트")
+
+
 # ──────────────────────────────────────────
 # 4. 메인 루프
 # ──────────────────────────────────────────
@@ -177,6 +195,8 @@ def main():
                 add_prompt()
             case "2":
                 show_list()
+            case "3":
+                show_by_category()
             case "0":
                 print("프로그램을 종료합니다. 안녕히 가세요! 👋")
                 break
