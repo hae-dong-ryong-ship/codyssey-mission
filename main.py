@@ -122,6 +122,25 @@ def show_menu():
     print("0. 종료")
 
 
+def add_prompt():
+    print("\n=== 프롬프트 추가 ===")
+    title = input_not_empty("제목: ")
+    content = input_multiline("내용:")
+
+    category = None
+    while category is None:
+        print("\n카테고리 선택:")
+        category = select_category(allow_custom=True)
+
+    prompts.append({
+        "title": title,
+        "content": content,
+        "category": category,
+        "favorite": False,  # 즐겨찾기 기본값은 False
+    })
+    print("\n✅ 프롬프트가 추가되었습니다!")
+
+
 # ──────────────────────────────────────────
 # 4. 메인 루프
 # ──────────────────────────────────────────
@@ -132,6 +151,8 @@ def main():
         choice = input("선택: ").strip()
 
         match choice:
+            case "1":
+                add_prompt()
             case "0":
                 print("프로그램을 종료합니다. 안녕히 가세요! 👋")
                 break
