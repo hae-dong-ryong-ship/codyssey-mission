@@ -181,6 +181,24 @@ def show_by_category():
     print(f"\n총 {len(result)}개의 프롬프트")
 
 
+def search_prompt():
+    print("\n=== 프롬프트 검색 ===")
+    keyword = input_not_empty("검색어: ")
+    lower_keyword = keyword.lower()  # 영어 대소문자 구분 없이 검색
+
+    result = [(i, p) for i, p in enumerate(prompts, start=1)
+              if lower_keyword in p["title"].lower()
+              or lower_keyword in p["content"].lower()]
+
+    if not result:
+        print(f"\n'{keyword}'에 대한 검색 결과가 없습니다.")
+        return
+
+    print("\n검색 결과:")
+    print_prompts(result)
+    print(f"\n{len(result)}개의 프롬프트를 찾았습니다.")
+
+
 # ──────────────────────────────────────────
 # 4. 메인 루프
 # ──────────────────────────────────────────
@@ -197,6 +215,8 @@ def main():
                 show_list()
             case "3":
                 show_by_category()
+            case "4":
+                search_prompt()
             case "0":
                 print("프로그램을 종료합니다. 안녕히 가세요! 👋")
                 break
