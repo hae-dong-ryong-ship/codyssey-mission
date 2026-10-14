@@ -55,6 +55,58 @@ prompts = [
 ]
 
 # ──────────────────────────────────────────
+# 2. 공통(보조) 함수
+# ──────────────────────────────────────────
+
+def input_not_empty(message):
+    """빈 값이 아닐 때까지 반복해서 입력받는다."""
+    while True:
+        value = input(message).strip()
+        if value:
+            return value
+        print("⚠️  입력값이 비어 있습니다. 다시 입력해주세요.")
+
+
+def input_multiline(message):
+    """여러 줄을 입력받는다. 빈 줄을 입력하면 입력이 끝난다."""
+    while True:
+        print(message + " (여러 줄 입력 가능, 입력을 마치려면 빈 줄에서 Enter)")
+        lines = []
+        while True:
+            line = input()
+            if line.strip() == "":
+                break
+            lines.append(line)
+        if lines:
+            return "\n".join(lines)
+        print("⚠️  내용이 비어 있습니다. 다시 입력해주세요.")
+
+
+def select_category(allow_custom=False):
+    """카테고리 목록을 보여주고 선택된 카테고리 이름을 돌려준다.
+    잘못 입력하면 None을 돌려준다."""
+    for i, category in enumerate(CATEGORIES, start=1):
+        print(f"{i}) {category}")
+    custom_number = len(CATEGORIES) + 1
+    if allow_custom:
+        print(f"{custom_number}) 직접 입력")
+
+    choice = input("선택: ").strip()
+    if not choice.isdigit():
+        print("⚠️  숫자를 입력해주세요.")
+        return None
+
+    number = int(choice)
+    if 1 <= number <= len(CATEGORIES):
+        return CATEGORIES[number - 1]
+    if allow_custom and number == custom_number:
+        return input_not_empty("카테고리 이름: ")
+
+    print("⚠️  목록에 없는 번호입니다.")
+    return None
+
+
+# ──────────────────────────────────────────
 # 3. 기능 함수
 # ──────────────────────────────────────────
 
