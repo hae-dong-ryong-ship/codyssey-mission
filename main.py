@@ -235,6 +235,32 @@ def show_detail():
     print(line)
 
 
+def toggle_favorite():
+    print("\n=== 즐겨찾기 관리 ===")
+    show_list()
+    prompt = get_prompt_by_number("\n프롬프트 번호 입력: ")
+    if prompt is None:
+        return
+
+    prompt["favorite"] = not prompt["favorite"]
+    if prompt["favorite"]:
+        print(f"'{prompt['title']}' 프롬프트를 즐겨찾기에 추가했습니다!")
+    else:
+        print(f"'{prompt['title']}' 프롬프트를 즐겨찾기에서 해제했습니다.")
+
+
+def show_favorites():
+    print("\n=== 즐겨찾기 목록 ===")
+    result = [(i, p) for i, p in enumerate(prompts, start=1) if p["favorite"]]
+
+    if not result:
+        print("즐겨찾기한 프롬프트가 없습니다.")
+        return
+
+    print_prompts(result)
+    print(f"\n총 {len(result)}개의 즐겨찾기")
+
+
 # ──────────────────────────────────────────
 # 4. 메인 루프
 # ──────────────────────────────────────────
@@ -255,6 +281,10 @@ def main():
                 search_prompt()
             case "5":
                 show_detail()
+            case "6":
+                toggle_favorite()
+            case "7":
+                show_favorites()
             case "0":
                 print("프로그램을 종료합니다. 안녕히 가세요! 👋")
                 break
