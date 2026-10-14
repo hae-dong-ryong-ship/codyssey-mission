@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# 환경 변수 / 비밀 정보
+.env
+
+# 에디터 / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
